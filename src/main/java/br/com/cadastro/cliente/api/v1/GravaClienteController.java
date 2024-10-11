@@ -1,5 +1,6 @@
-package br.com.cadastro.cliente.controller;
+package br.com.cadastro.cliente.api.v1;
 
+import br.com.cadastro.cliente.api.DataOutput;
 import br.com.cadastro.cliente.dto.ClienteDto;
 import br.com.cadastro.cliente.entity.Cliente;
 import br.com.cadastro.cliente.service.ProcessaClienteService;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class GravaClienteController {
+public class GravaClienteController implements ClienteOpenApi{
 
     private final ProcessaClienteService clienteService;
 
@@ -18,11 +19,11 @@ public class GravaClienteController {
         this.clienteService = clienteService;
     }
 
-    @PostMapping(value = "/cliente", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ClienteDto> gravaCliente(@RequestBody Cliente cliente) {
 
+    @Override
+    public ResponseEntity<DataOutput<ClienteDto>> gravaCliente(Cliente cliente) {
         final var cli = clienteService.gravaCliente(cliente);
 
-        return ResponseEntity.ok(cli);
+        return null;
     }
 }
